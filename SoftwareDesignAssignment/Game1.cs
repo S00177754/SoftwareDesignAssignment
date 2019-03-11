@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace SoftwareDesignAssignment
 {
@@ -12,10 +13,28 @@ namespace SoftwareDesignAssignment
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        MapGrid mapGrid;
+        int[,] tileMap;
+        List<Texture2D> textureList;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
+            new InputEngine(this);
+
+            tileMap = new int[,]
+            {
+                {0,1,2,3,4,5,6,4,4,5,6,4,1 },
+                {0,1,2,3,3,5,6,4,4,5,6,4,1 },
+                {1,1,2,2,3,5,6,4,4,5,6,4 ,1},
+                {1,1,1,3,3,4,4,4,4,5,6,4,1 },
+                {1,1,2,2,3,5,6,4,4,5,6,4,1 },
+                {1,1,1,3,3,4,4,4,4,5,6,4,1 },
+                {1,1,1,3,3,4,4,4,4,5,6,4,1 },
+                {1,1,1,3,3,4,4,4,4,5,6,4,1 },
+            };
         }
 
         /// <summary>
@@ -39,8 +58,20 @@ namespace SoftwareDesignAssignment
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.Services.AddService(spriteBatch);
 
             // TODO: use this.Content to load your game content here
+            textureList = new List<Texture2D>()
+            {
+                Content.Load<Texture2D>(@"Textures\Tiles\dirt"),
+                Content.Load<Texture2D>(@"Textures\Tiles\grass"),
+                Content.Load<Texture2D>(@"Textures\Tiles\ground"),
+                Content.Load<Texture2D>(@"Textures\Tiles\mud"),
+                Content.Load<Texture2D>(@"Textures\Tiles\road"),
+                Content.Load<Texture2D>(@"Textures\Tiles\rock"),
+                Content.Load<Texture2D>(@"Textures\Tiles\wood")
+            };
+            mapGrid = new MapGrid(this, 64, 64, tileMap,textureList);
         }
 
         /// <summary>
@@ -74,9 +105,6 @@ namespace SoftwareDesignAssignment
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }

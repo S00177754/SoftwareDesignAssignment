@@ -42,8 +42,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="InputEngine.cs" />
+    <Compile Include="MapGrid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprite.cs" />
+    <Compile Include="Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -53,6 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Textures\Tiles\dirt.jpg" />
+    <Content Include="Content\Textures\Tiles\grass.jpg" />
+    <Content Include="Content\Textures\Tiles\ground.jpg" />
+    <Content Include="Content\Textures\Tiles\mud.jpg" />
+    <Content Include="Content\Textures\Tiles\road.jpg" />
+    <Content Include="Content\Textures\Tiles\rock.jpg" />
+    <Content Include="Content\Textures\Tiles\wood.jpg" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
