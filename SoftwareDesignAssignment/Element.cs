@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoftwareDesignAssignment
 {
-    enum SIGN { Rock, Paper, Scissors, Lizard, Spock};
+    public enum SIGN { Rock, Paper, Scissors, Lizard, Spock};
 
-    class Element
+    public class Element
     {
         Random rand = new Random();
         SIGN mySign;

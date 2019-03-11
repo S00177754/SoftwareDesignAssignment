@@ -19,13 +19,15 @@ namespace SoftwareDesignAssignment
         public int AttackRange { get; private set; }
         public bool HasMoved { get; private set; } = false;
         public bool IsDead { get; private set; } = false;
+        public Element ElementalType { get; private set; }
         public Rectangle ClickBox { get; set; }
 
-        public Character(int health, int magicPoints, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(texture, userPosition, frameCount, origin)
+        public Character(int health, int magicPoints,Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(texture, userPosition, frameCount, origin)
         {
             Health = health;
             MagicPoints = magicPoints;
             ClickBox = CollisionField;
+            ElementalType = elementType;
         }
 
         //Methods
