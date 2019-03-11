@@ -41,8 +41,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Element.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InputEngine.cs" />
+    <Compile Include="IRPSLS.cs" />
     <Compile Include="MapGrid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
