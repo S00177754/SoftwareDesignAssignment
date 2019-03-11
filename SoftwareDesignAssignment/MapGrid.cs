@@ -45,7 +45,7 @@ namespace SoftwareDesignAssignment
                 {
                     int textureIndex = TileMap[y, x];
                     Texture2D texture = textures[textureIndex];
-                    bool passable = true;
+                    bool isWalkable = true;
 
                     switch (textureIndex)
                     {
@@ -54,17 +54,16 @@ namespace SoftwareDesignAssignment
                         case 2:
                         case 3:
                         case 4:
-                            passable = true;
+                            isWalkable = true;
                             break;
 
                         case 5:
                         case 6:
-                        case 7:
-                            passable = false;
+                            isWalkable = false;
                             break;
                     }
 
-                    tilesList.Add(new Tile(MyGame, texture, new Vector2(x * 64, y * 64), passable,new int[] {x,y}));
+                    tilesList.Add(new Tile(MyGame, texture, new Vector2(x * 64, y * 64), isWalkable, new int[] {x,y}));
                 }
             }
         }

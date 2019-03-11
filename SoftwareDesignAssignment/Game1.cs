@@ -13,9 +13,15 @@ namespace SoftwareDesignAssignment
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        #region Map Objects
         MapGrid mapGrid;
         int[,] tileMap;
         List<Texture2D> textureList;
+        #endregion
+
+        Character testCharacter;
+        Party playerOneParty;
+        Party playerTwoParty;
 
         public Game1()
         {
@@ -72,6 +78,24 @@ namespace SoftwareDesignAssignment
                 Content.Load<Texture2D>(@"Textures\Tiles\wood")
             };
             mapGrid = new MapGrid(this, 64, 64, tileMap,textureList);
+
+            testCharacter = new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft);
+            testCharacter.spriteDepth = 1;
+
+            playerOneParty = new Party("PlayerOne", new List<Character>()
+            {
+                new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,64), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft)
+            });
+            playerTwoParty = new Party("PlayerTwo", new List<Character>()
+            {
+                new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
+            });
         }
 
         /// <summary>

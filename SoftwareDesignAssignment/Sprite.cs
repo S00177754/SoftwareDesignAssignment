@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace SoftwareDesignAssignment
 {
-    public class Sprite
+    public class Sprite: DrawableGameComponent
     {
         //Visbility Variable
         public bool Visible { get { return visible; } set { visible = value; } }
         protected bool visible;
+        private SpriteBatch spriteBatch;
 
         //Sprite Texture Variables
         protected Texture2D spriteTexture;
@@ -40,7 +41,8 @@ namespace SoftwareDesignAssignment
         public enum OriginType { TopLeft, Center, TopRight, BottomLeft, BottomRight };
         public Vector2 WorldOrigin { get { return (Position + Origin); } }
         protected float angleOfRotation;
-        protected int spriteDepth = 0;
+        public int spriteDepth = 0;
+        
 
         //Sprite Animation Variables
         private int numberOfFrames = 0;
@@ -53,9 +55,11 @@ namespace SoftwareDesignAssignment
         /// <param name="userPosition">Starting position of this player.</param>
         /// <param name="frameCount">Amount of frames in sprite texture strip.</param>
         /// <param name="origin">Rotation point of player.</param>
-        public Sprite(Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin)
+        public Sprite(Game game,Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin):base(game)
         {
             //Set variables
+            game.Components.Add(this);
+            spriteBatch = game.Services.GetService<SpriteBatch>();
             spriteTexture = texture;
             Position = userPosition;
             numberOfFrames = frameCount;
@@ -92,7 +96,7 @@ namespace SoftwareDesignAssignment
         }
 
         //Overridable Methods
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             //Animation Logic
             timer += (float)gameTime.ElapsedGameTime.Milliseconds;
@@ -109,16 +113,24 @@ namespace SoftwareDesignAssignment
             sourceRectangle = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
             CollisionField = new Rectangle(Position.ToPoint(), new Point(spriteWidth, spriteHeight));
 
+            base.Update(gameTime);
+
         }
 
         //Draw Method
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
+            spriteBatch.Begin();
             if (Visible)
-                spriteBatch.Draw(spriteTexture,
-                        Position, sourceRectangle,
-                        Color.White, angleOfRotation, Origin,
-                        scale, SpriteEffects.None, spriteDepth);
+                spriteBatch.Draw(spriteTexture, new Rectangle((int)Position.X, (int)Position.Y, 64, 64),SourceRectangle, Color.White, angleOfRotation,Origin,SpriteEffects.None,spriteDepth);
+
+            //spriteBatch.Draw(spriteTexture,
+            //            Position, sourceRectangle,
+            //            Color.White, angleOfRotation, Origin,
+            //            scale, SpriteEffects.None, spriteDepth);
+
+            spriteBatch.End();
+            base.Draw(gameTime);
         }
 
         //Methods
