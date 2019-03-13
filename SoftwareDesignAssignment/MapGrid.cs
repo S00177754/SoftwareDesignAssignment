@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace SoftwareDesignAssignment
         //Constructor
         public MapGrid(Game game,int tile_width, int tile_height, int[,] tilemap, List<Texture2D> textureList)
         {
+            game.Services.AddService(this);
             spriteBatch = game.Services.GetService<SpriteBatch>();
             MyGame = game;
             TileWidth = tile_width;
@@ -124,6 +126,12 @@ namespace SoftwareDesignAssignment
                                 && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
                 deltaX++;
                 deltaY--;
+            }
+
+            foreach (Tile tile in tilesList)
+            {
+                tile.PassableColor();
+                Debug.WriteLine("Color");
             }
 
         }
