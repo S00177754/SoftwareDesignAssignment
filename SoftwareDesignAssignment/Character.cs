@@ -33,6 +33,7 @@ namespace SoftwareDesignAssignment
             ElementalType = elementType;
             gridCell = new int[] {(int) userPosition.X / 64 , (int)userPosition.Y / 64 };
             MovementRange = 3;
+            AttackRange = 1;
         }
 
         //Methods
@@ -60,9 +61,15 @@ namespace SoftwareDesignAssignment
 
             if (ClickCheck())
             {
-                IsSelected = !IsSelected;
+                //IsSelected = !IsSelected;
                 if (IsSelected)
-                    grid.CheckMoves(gridCell, MovementRange);
+                {
+                    for (int i = MovementRange; i > 0; i--)
+                    {
+                        grid.CheckMoves(gridCell, i);
+                    }
+
+                }
                 else
                     grid.ResetWalkable();
             }
@@ -77,10 +84,12 @@ namespace SoftwareDesignAssignment
             //if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved)
             if (InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position))
             {
+                IsSelected = true;
                 return true;
             }
             else
             {
+                IsSelected = false;
                 return false;
             }
         }

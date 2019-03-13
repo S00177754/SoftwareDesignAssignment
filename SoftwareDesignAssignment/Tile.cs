@@ -28,6 +28,7 @@ namespace SoftwareDesignAssignment
         Rectangle destination { get { return new Rectangle((int)position.X, (int)position.Y, 64, 64); } }
         public bool IsWalkable { get; set; }
         public bool IsPassable { get; set; }
+        public bool IsAttackable { get; set; }
         public bool displayMap = false;
         public int[] gridLocation;
 

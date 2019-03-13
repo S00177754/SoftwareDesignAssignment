@@ -82,9 +82,8 @@ namespace SoftwareDesignAssignment
 
             int deltaX = range;
             int deltaY = 0;
-            #region first Algorithm
+            #region Algorithm
             //Check Movementrange
-            //x--, y++
             for (int i = 0; i <= range; i++)
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
@@ -95,7 +94,6 @@ namespace SoftwareDesignAssignment
                 deltaY++;
             }
 
-            ////x--, y--
             deltaX = range;
             deltaY = 0;
             for (int i = 0; i <= range; i++)
@@ -108,12 +106,10 @@ namespace SoftwareDesignAssignment
                 deltaY--;
             }
 
-            ////x++, y++
             deltaX = -range;
             deltaY = 0;
             for (int i = 0; i <= range; i++)
             {
-                //moveThis = new int[] { x, y };
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
                 if(checkThisTile != null)
@@ -122,22 +118,18 @@ namespace SoftwareDesignAssignment
                 deltaY++;
             }
 
-            ////x++, y--
             deltaX = -range;
             deltaY = 0;
             for (int i = 0; i <= range; i++)
             {
-                //moveThis = new int[] { x, y };
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                 && current.gridLocation[1] == (y + deltaY));
                 if (checkThisTile != null)
                     checkThisTile.IsWalkable = true;
-                //tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
-                //                && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
                 deltaX++;
                 deltaY--;
             }
-            #endregion first Algorithm
+            #endregion Algorithm
 
 
 
@@ -153,6 +145,7 @@ namespace SoftwareDesignAssignment
         {
             foreach (var tile in tilesList)
             {
+                tile.ResetColor();
                 isWalkable = false;
             }
         }
