@@ -75,58 +75,71 @@ namespace SoftwareDesignAssignment
 
         public void CheckMoves(int[] playerPos, int range)
         {
-            int[] moveThis;
             int x = playerPos[0];
             int y = playerPos[1];
-            int[] moveFromHere = tilesList.Find(current => current.gridLocation[0] == x && current.gridLocation[1] == y).gridLocation;
-            int deltaX = range, deltaY = 0;
+            int[] moveFromHere = playerPos;
+            //tilesList.Find(current => current.gridLocation[0] == x && current.gridLocation[1] == y).gridLocation;
 
+            int deltaX = range;
+            int deltaY = 0;
+            #region first Algorithm
             //Check Movementrange
             //x--, y++
-            for (int i = 0; i < range; i++)
+            for (int i = 0; i <= range; i++)
             {
-                moveThis = new int[] { x, y };
-                tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
-                                && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                                                    && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null)
+                    checkThisTile.IsWalkable = true;
                 deltaX--;
                 deltaY++;
             }
 
-            //x--, y--
+            ////x--, y--
             deltaX = range;
-            deltaY = range;
-            for (int i = 0; i < range; i++)
+            deltaY = 0;
+            for (int i = 0; i <= range; i++)
             {
-                moveThis = new int[] { x, y };
-                tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
-                                && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                                                    && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null)
+                    checkThisTile.IsWalkable = true;
                 deltaX--;
                 deltaY--;
             }
 
-            //x++, y++
-            deltaX = 0;
+            ////x++, y++
+            deltaX = -range;
             deltaY = 0;
-            for (int i = 0; i < range; i++)
+            for (int i = 0; i <= range; i++)
             {
-                moveThis = new int[] { x, y };
-                tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
-                                && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
+                //moveThis = new int[] { x, y };
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                                                    && current.gridLocation[1] == (y + deltaY));
+                if(checkThisTile != null)
+                    checkThisTile.IsWalkable = true;
                 deltaX++;
                 deltaY++;
             }
 
-            //x++, y--
-            deltaX = 0;
-            deltaY = range;
-            for (int i = 0; i < range; i++)
+            ////x++, y--
+            deltaX = -range;
+            deltaY = 0;
+            for (int i = 0; i <= range; i++)
             {
-                moveThis = new int[] { x, y };
-                tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
-                                && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
+                //moveThis = new int[] { x, y };
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null)
+                    checkThisTile.IsWalkable = true;
+                //tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                //                && current.gridLocation[1] == (y + deltaY)).IsWalkable = true;
                 deltaX++;
                 deltaY--;
             }
+            #endregion first Algorithm
+
+
 
             foreach (Tile tile in tilesList)
             {
@@ -134,6 +147,14 @@ namespace SoftwareDesignAssignment
                 Debug.WriteLine("Color");
             }
 
+        }
+
+        public void ResetWalkable()
+        {
+            foreach (var tile in tilesList)
+            {
+                isWalkable = false;
+            }
         }
 
         public void Display(bool value)

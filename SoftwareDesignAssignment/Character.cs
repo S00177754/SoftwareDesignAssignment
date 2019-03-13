@@ -17,6 +17,7 @@ namespace SoftwareDesignAssignment
         public int[] gridCell;
         public int MovementRange { get; private set; }
         public int AttackRange { get; private set; }
+        public bool IsSelected { get; set; } = false;
         public bool HasMoved { get; private set; } = false;
         public bool IsDead { get; private set; } = false;
         public Element ElementalType { get; private set; }
@@ -59,15 +60,22 @@ namespace SoftwareDesignAssignment
 
             if (ClickCheck())
             {
-                grid.CheckMoves(gridCell, MovementRange);
+                IsSelected = !IsSelected;
+                if (IsSelected)
+                    grid.CheckMoves(gridCell, MovementRange);
+                else
+                    grid.ResetWalkable();
             }
+
+
 
             base.Update(gameTime);
         }
 
         public bool ClickCheck()
         {
-            if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved)
+            //if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved)
+            if (InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position))
             {
                 return true;
             }
