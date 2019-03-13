@@ -53,6 +53,12 @@ namespace SoftwareDesignAssignment
                 Visible = false;
                 IsDead = true;
             }
+
+            if(InputEngine.IsMouseLeftClick() && CollisionField.Contains(InputEngine.MousePosition.ToPoint()))
+            {
+                //MapGrid.CheckMoves();
+                //MapGrid.Display();
+            }
             base.Update(gameTime);
         }
 

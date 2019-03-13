@@ -76,6 +76,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="ClassDiagram3.cd" />
     <None Include="Content\Fonts\spriteFont.spritefont" />
   </ItemGroup>
   <ItemGroup>
