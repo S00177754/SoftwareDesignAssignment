@@ -22,8 +22,9 @@ namespace SoftwareDesignAssignment
         public Element ElementalType { get; private set; }
         public Rectangle ClickBox { get; set; }
 
-        public Character(int health, int magicPoints,Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(texture, userPosition, frameCount, origin)
+        public Character(Game game,int health, int magicPoints,Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,texture, userPosition, frameCount, origin)
         {
+            
             Health = health;
             MagicPoints = magicPoints;
             ClickBox = CollisionField;
@@ -36,17 +37,14 @@ namespace SoftwareDesignAssignment
             HasMoved = false;
         }
 
-        public void Move()
+        public void Move(MapGrid grid)
         {
 
         }
 
 
         //Overrides
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
+        
 
         public override void Update(GameTime gameTime)
         {
@@ -70,5 +68,27 @@ namespace SoftwareDesignAssignment
             }
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            if(Game1.gameState == GameState.Playing)
+            base.Draw(gameTime);
+        }
+    }
+
+    public class PlayerCharacter : Character
+    {
+        public PlayerCharacter(Game game,int health, int magicPoints, Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,health, magicPoints, elementType, texture, userPosition, frameCount, origin)
+        {
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
     }
 }

@@ -2,9 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SoftwareDesignAssignment
 {
+
+    public enum GameState { StartScreen,Playing,Paused};
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -12,10 +15,18 @@ namespace SoftwareDesignAssignment
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static GameState gameState;
+        public List<UIElement> StartUI;
 
+        #region Map Objects
         MapGrid mapGrid;
         int[,] tileMap;
         List<Texture2D> textureList;
+        #endregion
+
+        Party playerOneParty;
+        Party playerTwoParty;
+        BattleController battleController;
 
         public Game1()
         {
@@ -23,7 +34,8 @@ namespace SoftwareDesignAssignment
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
             new InputEngine(this);
-
+            
+            gameState = GameState.StartScreen;
             tileMap = new int[,]
             {
                 {0,1,2,3,4,5,6,4,4,5,6,4,1 },
@@ -58,6 +70,7 @@ namespace SoftwareDesignAssignment
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.Services.AddService(Content.Load<SpriteFont>(@"Fonts\spriteFont"));
             this.Services.AddService(spriteBatch);
 
             // TODO: use this.Content to load your game content here
@@ -72,6 +85,47 @@ namespace SoftwareDesignAssignment
                 Content.Load<Texture2D>(@"Textures\Tiles\wood")
             };
             mapGrid = new MapGrid(this, 64, 64, tileMap,textureList);
+
+            //testCharacter = new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft);
+            //testCharacter.spriteDepth = 1;
+            battleController = new BattleController(new Party[] { new Party(this,"PlayerTwo", new List<Character>()
+            {
+                new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,63, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,25, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,11, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
+            }),
+            new Party(this,"PlayerTwo", new List<Character>()
+            {
+                new PlayerCharacter(this, 14, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,32, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,40, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
+            })
+                });
+
+            //playerOneParty = new Party(this,"PlayerOne", new List<Character>()
+            //{
+            //    new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft),
+            //    new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
+            //    new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,64), 1, Sprite.OriginType.TopLeft),
+            //    new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft)
+            //});
+            //playerTwoParty = new Party(this,"PlayerTwo", new List<Character>()
+            //{
+            //    new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
+            //    new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
+            //    new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
+            //    new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
+            //});
+
+            StartUI = new List<UIElement>()
+            {
+                new UIButton(this,"Start Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,100)),200,100,Color.Orange),
+                new UIButton(this,"Exit Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-100)),200,100,Color.Orange)
+            };
+
+            gameState = GameState.StartScreen;
         }
 
         /// <summary>
@@ -90,10 +144,39 @@ namespace SoftwareDesignAssignment
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.E))
                 Exit();
 
-            // TODO: Add your update logic here
+                switch (gameState)
+                {
+                    case GameState.StartScreen:
+                    ((UIButton)StartUI[0]).Visible = true;
+                    ((UIButton)StartUI[1]).Visible = true;
+                    mapGrid.Display(false);
+
+                    if (((UIButton)StartUI[0]).ClickCheck() )
+                    {
+                            gameState = GameState.Playing;
+                    }
+                       
+                    if (((UIButton)StartUI[1]).ClickCheck())
+                    {
+                        Exit();
+                    }
+                    break;
+
+                case GameState.Playing:
+
+                    ((UIButton)StartUI[0]).Visible = false;
+                    ((UIButton)StartUI[1]).Visible = false;
+                    mapGrid.Display(true);
+                    battleController.Update();
+                    break;
+
+                case GameState.Paused:
+                    break;
+                }
+            
 
             base.Update(gameTime);
         }
