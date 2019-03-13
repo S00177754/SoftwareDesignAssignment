@@ -21,14 +21,17 @@ namespace SoftwareDesignAssignment
         public bool IsDead { get; private set; } = false;
         public Element ElementalType { get; private set; }
         public Rectangle ClickBox { get; set; }
+        public MapGrid grid;
 
         public Character(Game game,int health, int magicPoints,Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,texture, userPosition, frameCount, origin)
         {
-            
+            grid = game.Services.GetService<MapGrid>();
             Health = health;
             MagicPoints = magicPoints;
             ClickBox = CollisionField;
             ElementalType = elementType;
+            gridCell = new int[] {(int) userPosition.X / 64 , (int)userPosition.Y / 64 };
+            MovementRange = 3;
         }
 
         //Methods
@@ -54,11 +57,11 @@ namespace SoftwareDesignAssignment
                 IsDead = true;
             }
 
-            if(InputEngine.IsMouseLeftClick() && CollisionField.Contains(InputEngine.MousePosition.ToPoint()))
+            if (ClickCheck())
             {
-                //MapGrid.CheckMoves();
-                //MapGrid.Display();
+                grid.CheckMoves(gridCell, MovementRange);
             }
+
             base.Update(gameTime);
         }
 

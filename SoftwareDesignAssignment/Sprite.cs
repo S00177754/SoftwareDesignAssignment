@@ -11,8 +11,6 @@ namespace SoftwareDesignAssignment
     public class Sprite: DrawableGameComponent
     {
         //Visbility Variable
-        public bool Visible { get { return visible; } set { visible = value; } }
-        protected bool visible;
         private SpriteBatch spriteBatch;
 
         //Sprite Texture Variables
@@ -63,7 +61,7 @@ namespace SoftwareDesignAssignment
             spriteTexture = texture;
             Position = userPosition;
             numberOfFrames = frameCount;
-            visible = true;
+            Visible = true;
 
             //Sprite Texture Variable Calculations
             spriteHeight = spriteTexture.Height;
