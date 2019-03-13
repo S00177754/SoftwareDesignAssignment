@@ -67,5 +67,13 @@ namespace SoftwareDesignAssignment
                 }
             }
         }
+
+        public void Display(bool value)
+        {
+            foreach (var tile in tilesList)
+            {
+                tile.displayMap = value;
+            }
+        }
     }
 }

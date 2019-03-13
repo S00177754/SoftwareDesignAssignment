@@ -27,6 +27,7 @@ namespace SoftwareDesignAssignment
         Vector2 position;
         Rectangle destination { get { return new Rectangle((int)position.X, (int)position.Y, 64, 64); } }
         public bool IsPassable { get; private set; }
+        public bool displayMap = false;
         public int[] gridLocation;
 
         //Constructor
@@ -81,11 +82,13 @@ namespace SoftwareDesignAssignment
         //Overrides from drawable game component
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
-            spriteBatch.Draw(tileTexture, destination, Color.White);
-            spriteBatch.Draw(tileTexture, destination, tileColor);
-
-            spriteBatch.End();
+            if (displayMap)
+            {
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
+                spriteBatch.Draw(tileTexture, destination, Color.White);
+                spriteBatch.Draw(tileTexture, destination, tileColor);
+                spriteBatch.End();
+            }
             base.Draw(gameTime);
         }
 
@@ -96,10 +99,10 @@ namespace SoftwareDesignAssignment
                 
                 if(tileColor != Color.White)
                 {
-                    ResetColor();
+                    //ResetColor();
                 }
                 else{
-                    PassableColor();
+                    //PassableColor();
                 }
             }
             base.Update(gameTime);

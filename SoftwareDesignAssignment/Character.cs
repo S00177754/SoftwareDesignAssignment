@@ -70,6 +70,7 @@ namespace SoftwareDesignAssignment
 
         public override void Draw(GameTime gameTime)
         {
+            if(Game1.gameState == GameState.Playing)
             base.Draw(gameTime);
         }
     }

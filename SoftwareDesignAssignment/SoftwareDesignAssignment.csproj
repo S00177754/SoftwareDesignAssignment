@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="UIElements.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -69,11 +70,13 @@
     <Content Include="Content\Textures\Tiles\road.jpg" />
     <Content Include="Content\Textures\Tiles\rock.jpg" />
     <Content Include="Content\Textures\Tiles\wood.jpg" />
+    <Content Include="Content\Textures\WhiteSquare.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Fonts\spriteFont.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Textures\Characters\" />
