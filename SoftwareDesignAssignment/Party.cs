@@ -29,7 +29,9 @@ namespace SoftwareDesignAssignment
             for (int i = 0; i < 4; i++)
             {
                 MemberStats.Add(new UIStatBlock(game, Members[i], game.Content.Load<Texture2D>(@"Textures\WhiteSquare"), new Vector2((10 + 100 * i), game.GraphicsDevice.Viewport.Height - 50), 100, 40, Color.Gray));
+                MemberStats[i].Visible = false;
             }
+            DisplayUI(false);
         }
 
         //Methods

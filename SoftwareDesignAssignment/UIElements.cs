@@ -102,9 +102,9 @@ namespace SoftwareDesignAssignment
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            base.Draw(gameTime);
             if (Visible)
             {
+            base.Draw(gameTime);
                 spriteBatch.DrawString(spriteFont, message, positionText, Color.Black);
             }
             spriteBatch.End();

@@ -24,8 +24,8 @@ namespace SoftwareDesignAssignment
         List<Texture2D> textureList;
         #endregion
 
-        Party playerOneParty;
-        Party playerTwoParty;
+        //Party playerOneParty;
+        //Party playerTwoParty;
         BattleController battleController;
 
         public Game1()
@@ -157,6 +157,7 @@ namespace SoftwareDesignAssignment
                     if (((UIButton)StartUI[0]).ClickCheck() )
                     {
                             gameState = GameState.Playing;
+                        battleController.NextTeam();
                     }
                        
                     if (((UIButton)StartUI[1]).ClickCheck())

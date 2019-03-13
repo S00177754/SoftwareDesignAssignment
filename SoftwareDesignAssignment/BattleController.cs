@@ -20,7 +20,9 @@ namespace SoftwareDesignAssignment
         {
             teams = parties;
             battleState = BattleState.Inactive;
-            NextTeam();
+            //NextTeam();
+            teams[0].DisplayUI(false);
+            teams[1].DisplayUI(false);
         } 
 
         //Methods
