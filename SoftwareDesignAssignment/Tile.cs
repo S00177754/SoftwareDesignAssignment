@@ -27,6 +27,8 @@ namespace SoftwareDesignAssignment
         Vector2 position;
         Rectangle destination { get { return new Rectangle((int)position.X, (int)position.Y, 64, 64); } }
         public bool IsPassable { get; private set; }
+        public bool IsWalkable;
+        public bool IsAttackable;
         public int[] gridLocation;
 
         //Constructor

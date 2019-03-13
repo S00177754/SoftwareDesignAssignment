@@ -44,7 +44,7 @@ namespace SoftwareDesignAssignment
             switch (mySign)
             {
                 case SIGN.Rock:
-                
+                //TODO: amend code to dropthrough wins and looses
                     switch (enemySign)
                     {
                         case SIGN.Rock:
