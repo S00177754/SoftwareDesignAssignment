@@ -10,10 +10,9 @@
   <Class Name="SoftwareDesignAssignment.Character">
     <Position X="1" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBCAAAAIEAAoAAABAAEAAAEAAACAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AAQBCAAAAIMAAoAAABAAEAAAEAAACAAABAAAAAAAAAA=</HashCode>
       <FileName>Character.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="SoftwareDesignAssignment.PlayerCharacter">
     <Position X="1" Y="8.5" Width="1.5" />
@@ -74,7 +73,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>QARCAkBAoAAAAgAgEAgAAAAiAAAARAMIAAQACAgQEAA=</HashCode>
+      <HashCode>QARCAkBAoAAAAgAgEAgAAAAiAAAARAMAAAQAAAgQEAA=</HashCode>
       <FileName>Sprite.cs</FileName>
     </TypeIdentifier>
   </Class>
