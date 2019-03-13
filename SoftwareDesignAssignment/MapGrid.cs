@@ -19,6 +19,7 @@ namespace SoftwareDesignAssignment
         public int[,] TileMap { get; private set; }
         public int[] GridPosition { get; set; }
         public Vector2 WorldBounds { get; private set; }
+        public bool isWalkable;
         public SpriteBatch spriteBatch { get; private set; }
         List<Tile> tilesList;
         List<Texture2D> textures;
@@ -46,7 +47,7 @@ namespace SoftwareDesignAssignment
                 {
                     int textureIndex = TileMap[y, x];
                     Texture2D texture = textures[textureIndex];
-                    bool isWalkable = true;
+                    isWalkable = true;
 
                     switch (textureIndex)
                     {
@@ -65,7 +66,7 @@ namespace SoftwareDesignAssignment
                     }
 
                     tilesList.Add(new Tile(MyGame, texture, new Vector2(x * 64, y * 64), 
-                        passable,new int[] {x,y}));
+                        isWalkable,new int[] {x,y}));
                 }
             }
         }
@@ -125,6 +126,14 @@ namespace SoftwareDesignAssignment
                 deltaY--;
             }
 
+        }
+
+        public void Display(bool value)
+        {
+            foreach (var tile in tilesList)
+            {
+                tile.displayMap = value;
+            }
         }
 
     }

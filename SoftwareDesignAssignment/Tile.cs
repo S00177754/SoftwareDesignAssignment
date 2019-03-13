@@ -26,7 +26,7 @@ namespace SoftwareDesignAssignment
         SpriteBatch spriteBatch;
         Vector2 position;
         Rectangle destination { get { return new Rectangle((int)position.X, (int)position.Y, 64, 64); } }
-        public bool IsPassable { get; private set; }
+        public bool IsWalkable { get; set; }
         public bool displayMap = false;
         public int[] gridLocation;
 
@@ -37,7 +37,7 @@ namespace SoftwareDesignAssignment
             spriteBatch = game.Services.GetService<SpriteBatch>();
             this.tileTexture = tileTexture;
             this.position = position;
-            IsPassable = isPassable;
+            IsWalkable = isPassable;
             tileColor = Color.White;
             ClickBox = new Rectangle((int)position.X, (int)position.Y, 64, 64);
         }
@@ -61,11 +61,11 @@ namespace SoftwareDesignAssignment
         //Methods
         public void PassableColor()
         {
-            if (IsPassable)
+            if (IsWalkable)
             {
                 tileColor = Color.Blue;
             }
-            else if (!IsPassable)
+            else if (!IsWalkable)
             {
                 tileColor = Color.Red;
             }
