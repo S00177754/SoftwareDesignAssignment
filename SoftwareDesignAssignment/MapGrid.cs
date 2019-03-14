@@ -22,7 +22,7 @@ namespace SoftwareDesignAssignment
         public Vector2 WorldBounds { get; private set; }
         public bool isWalkable;
         public SpriteBatch spriteBatch { get; private set; }
-        List<Tile> tilesList;
+        public List<Tile> tilesList;
         List<Texture2D> textures;
 
         //Constructor
@@ -129,12 +129,10 @@ namespace SoftwareDesignAssignment
                 deltaY--;
             }
 
-
-
             foreach (Tile tile in tilesList)
             {
                 tile.PassableColor();
-                Debug.WriteLine("Color");
+                
             }
 
         }

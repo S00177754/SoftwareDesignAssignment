@@ -46,7 +46,6 @@
     <Compile Include="Element.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InputEngine.cs" />
-    <Compile Include="IRPSLS.cs" />
     <Compile Include="MapGrid.cs" />
     <Compile Include="Party.cs" />
     <Compile Include="Program.cs" />
@@ -76,6 +75,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram3.cd" />
     <None Include="Content\Fonts\spriteFont.spritefont" />
   </ItemGroup>

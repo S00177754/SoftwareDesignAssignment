@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,8 +56,12 @@ namespace SoftwareDesignAssignment
 
         public bool ClickCheck()
         {
+            
             if (ClickBox.Contains(Mouse.GetState().Position) && InputEngine.IsMouseLeftClick())
+            {
+                Debug.WriteLine("ClickCheck Tile: " + IsWalkable);
                 return true;
+            }
             return false;
         }
         #endregion

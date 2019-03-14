@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace SoftwareDesignAssignment
             gridCell = new int[] {(int) userPosition.X / 64 , (int)userPosition.Y / 64 };
             MovementRange = 3;
             AttackRange = 1;
+            Visible = true;
         }
 
         //Methods
@@ -44,7 +46,18 @@ namespace SoftwareDesignAssignment
 
         public void Move(MapGrid grid)
         {
-
+            foreach (var tile in grid.tilesList)
+            {
+                if (tile.ClickCheck() && tile.IsWalkable)
+                {
+                    Debug.WriteLine("Move");
+                    gridCell = tile.gridLocation;
+                    Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
+                    grid.ResetWalkable();
+                    //IsSelected = false;
+                }
+                
+            }
         }
 
 
@@ -53,26 +66,36 @@ namespace SoftwareDesignAssignment
 
         public override void Update(GameTime gameTime)
         {
+
+           
+
             if(Health <= 0)
             {
                 Visible = false;
                 IsDead = true;
             }
 
-            if (ClickCheck())
+            ClickCheck();
+
+            if (IsSelected)
             {
                 //IsSelected = !IsSelected;
-                if (IsSelected)
+                if (ClickCheck())
                 {
                     for (int i = MovementRange; i > 0; i--)
                     {
                         grid.CheckMoves(gridCell, i);
                     }
                     grid.CheckAttack(gridCell, MovementRange + AttackRange);
+                    Debug.WriteLine("Violent Yelling");
                 }
                 else
                     grid.ResetWalkable();
+
+                Debug.WriteLine("Selected");
+                Move(grid);
             }
+
 
 
 
