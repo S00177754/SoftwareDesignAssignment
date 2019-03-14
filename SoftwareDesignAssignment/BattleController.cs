@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,8 @@ namespace SoftwareDesignAssignment
     {
         //Variables
         public BattleState battleState;
-        public Party[] teams;
+        static public Party[] teams;
+        
 
         //Constructor
         public BattleController(Party[] parties)
@@ -31,16 +33,21 @@ namespace SoftwareDesignAssignment
             switch (battleState)
             {
                 case BattleState.PlayerOneTurn:
-                    teams[0].SetActive(true);
-                    if(teams[0].HasNotMoved() <= 0)
+                    if(teams[0].HasNotMoved()<= 0)
                     {
                         NextTeam();
                     }
                     break;
 
                 case BattleState.PlayerTwoTurn:
-                    teams[1].SetActive(true);
-                    if (teams[1].HasNotMoved() <= 0)
+                    if (teams[1].HasNotMoved()<= 0)
+                    {
+                        NextTeam();
+                    }
+                    break;
+
+                case BattleState.Inactive:
+                    if (Game1.gameState == GameState.Playing)
                     {
                         NextTeam();
                     }
@@ -50,28 +57,35 @@ namespace SoftwareDesignAssignment
 
         public void NextTeam()
         {
+            Debug.WriteLine("Next Team");
+
             foreach (var team in teams)
             {
                 team.IsActive = false;
             }
 
-            switch (battleState)
+            switch (battleState) //current turn
             {
-                case BattleState.Inactive:
+                
                 case BattleState.PlayerOneTurn:
-                    teams[0].DisplayUI(true);
-                    teams[1].DisplayUI(false);
-                    teams[1].SetActive(true);
-                    teams[0].SetActive(false);
-                    battleState = BattleState.PlayerTwoTurn;
-                    break;
-
-                case BattleState.PlayerTwoTurn:
+                    Debug.WriteLine("Set Team Two");
                     teams[0].DisplayUI(false);
                     teams[1].DisplayUI(true);
-                    teams[1].SetActive(false);
+                    teams[0].SetActive(false);
+                    teams[1].SetActive(true);
+                    battleState = BattleState.PlayerTwoTurn;
+
+                    break;
+
+                case BattleState.Inactive:
+                case BattleState.PlayerTwoTurn:
+                    Debug.WriteLine("Set Team One");
+                    teams[0].DisplayUI(true);
+                    teams[1].DisplayUI(false);
                     teams[0].SetActive(true);
+                    teams[1].SetActive(false);
                     battleState = BattleState.PlayerOneTurn;
+
                     break;
 
                 default:

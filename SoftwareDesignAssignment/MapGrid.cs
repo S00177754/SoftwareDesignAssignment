@@ -87,8 +87,11 @@ namespace SoftwareDesignAssignment
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
-                if (checkThisTile != null && checkThisTile.IsPassable)
+                
+                if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                {
                     checkThisTile.IsWalkable = true;
+                }
                 deltaX--;
                 deltaY++;
             }

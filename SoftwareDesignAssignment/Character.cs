@@ -26,9 +26,12 @@ namespace SoftwareDesignAssignment
         public Rectangle ClickBox { get; set; }
         public MapGrid grid;
 
+        public SpriteBatch sp;
+
         public Character(Game game,int health, int magicPoints,Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,texture, userPosition, frameCount, origin)
         {
             grid = game.Services.GetService<MapGrid>();
+            sp = game.Services.GetService<SpriteBatch>();
             Health = health;
             MagicPoints = magicPoints;
             ClickBox = CollisionField;
@@ -43,6 +46,8 @@ namespace SoftwareDesignAssignment
         public void StartTurn()
         {
             HasMoved = false;
+            IsSelected = false;
+            IsActive = true;
         }
 
         public void Move(MapGrid grid)
@@ -61,14 +66,17 @@ namespace SoftwareDesignAssignment
             }
         }
 
+        public void Attack(MapGrid grid)
+        {
+          //  for
+        }
 
         //Overrides
         
 
         public override void Update(GameTime gameTime)
         {
-
-           
+            ClickBox = CollisionField;
 
             if(Health <= 0)
             {
@@ -78,6 +86,7 @@ namespace SoftwareDesignAssignment
 
             if (IsActive)
             {
+
                 if (IsSelected)
                 {
                     for (int i = MovementRange; i > 0; i--)
@@ -103,8 +112,8 @@ namespace SoftwareDesignAssignment
                     Debug.WriteLine("Selected");
                 }
             }
-            
 
+            gridCell = new int[] { (int)Position.X / 64, (int)Position.Y / 64 };
             base.Update(gameTime);
         }
 
@@ -125,8 +134,11 @@ namespace SoftwareDesignAssignment
 
         public override void Draw(GameTime gameTime)
         {
-            if(Game1.gameState == GameState.Playing)
-            base.Draw(gameTime);
+            if (Game1.gameState == GameState.Playing)
+            {
+                base.Draw(gameTime);
+            }
+            
         }
     }
 

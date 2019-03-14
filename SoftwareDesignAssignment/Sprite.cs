@@ -67,7 +67,7 @@ namespace SoftwareDesignAssignment
             spriteHeight = spriteTexture.Height;
             spriteWidth = spriteTexture.Width / frameCount;
             SpriteCenter = new Vector2(spriteWidth / 2, spriteHeight / 2);
-            CollisionField = new Rectangle(Position.ToPoint(), new Point(spriteWidth, spriteHeight));
+            CollisionField = new Rectangle(Position.ToPoint(), new Point(64, 64));
             switch (origin)
             {
                 case OriginType.Center:
@@ -109,7 +109,7 @@ namespace SoftwareDesignAssignment
 
             }
             sourceRectangle = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
-            CollisionField = new Rectangle(Position.ToPoint(), new Point(spriteWidth, spriteHeight));
+            CollisionField = new Rectangle(Position.ToPoint(), new Point(64, 64));
 
             base.Update(gameTime);
 

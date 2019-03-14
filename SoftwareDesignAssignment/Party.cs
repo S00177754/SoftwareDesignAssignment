@@ -31,6 +31,7 @@ namespace SoftwareDesignAssignment
                 MemberStats.Add(new UIStatBlock(game, Members[i], game.Content.Load<Texture2D>(@"Textures\WhiteSquare"), new Vector2((10 + 100 * i), game.GraphicsDevice.Viewport.Height - 50), 100, 40, Color.Gray));
                 
             }
+
             DisplayUI(false);
         }
 
@@ -61,11 +62,11 @@ namespace SoftwareDesignAssignment
 
         public int HasNotMoved()
         {
-            int temp = 0;
+            int temp = 4;
             foreach (var member in Members)
             {
-                if (member.HasMoved)
-                    temp++;
+                if (member.HasMoved == true)
+                    temp--;
             }
             return temp;
         }
