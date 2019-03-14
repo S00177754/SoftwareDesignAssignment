@@ -75,29 +75,35 @@ namespace SoftwareDesignAssignment
                 IsDead = true;
             }
 
-            ClickCheck();
+            if (InputEngine.IsKeyPressed(Keys.M) && IsSelected)
+                Debug.WriteLine(IsSelected);
 
             if (IsSelected)
             {
-                //IsSelected = !IsSelected;
-                if (ClickCheck())
-                {
                     for (int i = MovementRange; i > 0; i--)
                     {
                         grid.CheckMoves(gridCell, i);
                     }
                     grid.CheckAttack(gridCell, MovementRange + AttackRange);
-                    Debug.WriteLine("Violent Yelling");
-                }
-                else
-                    grid.ResetWalkable();
 
-                Debug.WriteLine("Selected");
-                Move(grid);
+                //IsSelected = !IsSelected;      
             }
 
+            if (IsSelected && InputEngine.IsMouseLeftClick())
+            {
+                IsSelected = false;
+                Move(grid);
+                Debug.WriteLine("Move");
 
+                grid.ResetWalkable();
+            }
+            else if (!IsSelected && ClickCheck())
+            {
+                IsSelected = true;
+                Debug.WriteLine("Selected");
+            }
 
+            
 
             base.Update(gameTime);
         }
@@ -107,12 +113,12 @@ namespace SoftwareDesignAssignment
             //if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved)
             if (InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position))
             {
-                IsSelected = true;
+                Debug.WriteLine("Clicked");
                 return true;
             }
             else
             {
-                IsSelected = false;
+                //IsSelected = false;
                 return false;
             }
         }
