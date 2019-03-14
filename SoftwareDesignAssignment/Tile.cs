@@ -72,6 +72,10 @@ namespace SoftwareDesignAssignment
             {
                 tileColor = Color.Red;
             }
+            else if(IsAttackable)
+            {
+                tileColor = Color.Red;
+            }
 
             tileColor.A = 127;
         }
@@ -91,6 +95,8 @@ namespace SoftwareDesignAssignment
                 //
                 if(IsWalkable)
                     spriteBatch.Draw(tileTexture, destination, Color.Blue);
+                else if (IsAttackable)
+                    spriteBatch.Draw(tileTexture, destination, Color.Red);
                 else
                     spriteBatch.Draw(tileTexture, destination, Color.White);
                 spriteBatch.Draw(tileTexture, destination, tileColor);

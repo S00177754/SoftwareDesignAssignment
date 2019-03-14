@@ -82,13 +82,12 @@ namespace SoftwareDesignAssignment
 
             int deltaX = range;
             int deltaY = 0;
-            #region Algorithm
             //Check Movementrange
             for (int i = 0; i <= range; i++)
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
-                if (checkThisTile != null)
+                if (checkThisTile != null && checkThisTile.IsPassable)
                     checkThisTile.IsWalkable = true;
                 deltaX--;
                 deltaY++;
@@ -100,7 +99,7 @@ namespace SoftwareDesignAssignment
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
-                if (checkThisTile != null)
+                if (checkThisTile != null && checkThisTile.IsPassable)
                     checkThisTile.IsWalkable = true;
                 deltaX--;
                 deltaY--;
@@ -112,7 +111,7 @@ namespace SoftwareDesignAssignment
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
-                if(checkThisTile != null)
+                if(checkThisTile != null && checkThisTile.IsPassable)
                     checkThisTile.IsWalkable = true;
                 deltaX++;
                 deltaY++;
@@ -124,12 +123,11 @@ namespace SoftwareDesignAssignment
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                 && current.gridLocation[1] == (y + deltaY));
-                if (checkThisTile != null)
+                if (checkThisTile != null && checkThisTile.IsPassable)
                     checkThisTile.IsWalkable = true;
                 deltaX++;
                 deltaY--;
             }
-            #endregion Algorithm
 
 
 
@@ -143,7 +141,7 @@ namespace SoftwareDesignAssignment
 
         public void ResetWalkable()
         {
-            foreach (var tile in tilesList)
+            foreach (Tile tile in tilesList)
             {
                 tile.ResetColor();
                 isWalkable = false;
@@ -156,6 +154,69 @@ namespace SoftwareDesignAssignment
             {
                 tile.displayMap = value;
             }
+        }
+
+        public void CheckAttack(int[] playerPos, int range)
+        {
+            int x = playerPos[0];
+            int y = playerPos[1];
+            int[] moveFromHere = playerPos;
+            //tilesList.Find(current => current.gridLocation[0] == x && current.gridLocation[1] == y).gridLocation;
+
+            int deltaX = range;
+            int deltaY = 0;
+            //Check Movementrange
+            for (int i = 0; i <= range; i++)
+            {
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                                                    && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null && checkThisTile.IsPassable)
+                    checkThisTile.IsAttackable = true;
+                deltaX--;
+                deltaY++;
+            }
+
+            deltaX = range;
+            deltaY = 0;
+            for (int i = 0; i <= range; i++)
+            {
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                                                    && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null && checkThisTile.IsPassable)
+                    checkThisTile.IsAttackable = true;
+                deltaX--;
+                deltaY--;
+            }
+
+            deltaX = -range;
+            deltaY = 0;
+            for (int i = 0; i <= range; i++)
+            {
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                                                    && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null && checkThisTile.IsPassable)
+                    checkThisTile.IsAttackable = true;
+                deltaX++;
+                deltaY++;
+            }
+
+            deltaX = -range;
+            deltaY = 0;
+            for (int i = 0; i <= range; i++)
+            {
+                Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
+                && current.gridLocation[1] == (y + deltaY));
+                if (checkThisTile != null && checkThisTile.IsPassable)
+                    checkThisTile.IsAttackable = true;
+                deltaX++;
+                deltaY--;
+            }
+
+            //foreach (Tile tile in tilesList)
+            //{
+            //    tile.PassableColor();
+            //    Debug.WriteLine("Color");
+            //}
         }
 
     }

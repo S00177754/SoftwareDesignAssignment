@@ -68,7 +68,7 @@ namespace SoftwareDesignAssignment
                     {
                         grid.CheckMoves(gridCell, i);
                     }
-
+                    grid.CheckAttack(gridCell, MovementRange + AttackRange);
                 }
                 else
                     grid.ResetWalkable();
