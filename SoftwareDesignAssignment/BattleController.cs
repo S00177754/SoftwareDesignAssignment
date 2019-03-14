@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,11 +16,12 @@ namespace SoftwareDesignAssignment
         //Variables
         public BattleState battleState;
         static public Party[] teams;
-        
+        public MapGrid grid;
 
         //Constructor
-        public BattleController(Party[] parties)
+        public BattleController(Game game, Party[] parties)
         {
+            grid = game.Services.GetService<MapGrid>();
             teams = parties;
             battleState = BattleState.Inactive;
             //NextTeam();
@@ -63,6 +65,14 @@ namespace SoftwareDesignAssignment
             {
                 team.IsActive = false;
             }
+            //reset all tiles to !IsWalkable
+            foreach (var tile in grid.tilesList)
+            {
+                tile.IsWalkable = false;
+                tile.IsAttackable = false;
+            }
+
+            //Add reset of tilelist to 
 
             switch (battleState) //current turn
             {

@@ -88,7 +88,7 @@ namespace SoftwareDesignAssignment
 
             //testCharacter = new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft);
             //testCharacter.spriteDepth = 1;
-            battleController = new BattleController(new Party[] { new Party(this,"PlayerOne", new List<Character>()
+            battleController = new BattleController(this, new Party[] { new Party(this,"PlayerOne", new List<Character>()
             {
                 new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,0), 1, Sprite.OriginType.TopLeft),
                 new PlayerCharacter(this,63, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
@@ -103,7 +103,7 @@ namespace SoftwareDesignAssignment
                 new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
             })
                 });
-
+            this.Services.AddService<BattleController>(battleController);
             //playerOneParty = new Party(this,"PlayerOne", new List<Character>()
             //{
             //    new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft),
@@ -126,6 +126,7 @@ namespace SoftwareDesignAssignment
             };
 
             gameState = GameState.StartScreen;
+
         }
 
         /// <summary>

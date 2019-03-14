@@ -25,6 +25,7 @@ namespace SoftwareDesignAssignment
         public Element ElementalType { get; private set; }
         public Rectangle ClickBox { get; set; }
         public MapGrid grid;
+        public BattleController bController;
 
         public SpriteBatch sp;
 
@@ -32,6 +33,7 @@ namespace SoftwareDesignAssignment
         {
             grid = game.Services.GetService<MapGrid>();
             sp = game.Services.GetService<SpriteBatch>();
+            bController = game.Services.GetService<BattleController>();
             Health = health;
             MagicPoints = magicPoints;
             ClickBox = CollisionField;

@@ -24,12 +24,14 @@ namespace SoftwareDesignAssignment
         public SpriteBatch spriteBatch { get; private set; }
         public List<Tile> tilesList;
         List<Texture2D> textures;
+        BattleController bc;
 
         //Constructor
         public MapGrid(Game game,int tile_width, int tile_height, int[,] tilemap, List<Texture2D> textureList)
         {
             game.Services.AddService(this);
             spriteBatch = game.Services.GetService<SpriteBatch>();
+            bc = game.Services.GetService<BattleController>();
             MyGame = game;
             TileWidth = tile_width;
             TileHeight = tile_height;
@@ -79,6 +81,9 @@ namespace SoftwareDesignAssignment
             int y = playerPos[1];
             int[] moveFromHere = playerPos;
             //tilesList.Find(current => current.gridLocation[0] == x && current.gridLocation[1] == y).gridLocation;
+            //Check active team
+
+
 
             int deltaX = range;
             int deltaY = 0;
@@ -90,6 +95,7 @@ namespace SoftwareDesignAssignment
                 
                 if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
                 {
+                    //if(checkThisTile.ClickBox.Contains())
                     checkThisTile.IsWalkable = true;
                 }
                 deltaX--;
@@ -141,8 +147,8 @@ namespace SoftwareDesignAssignment
         }
 
         public void ResetWalkable()
-        {
-            foreach (Tile tile in tilesList)
+        { 
+            foreach (Tile tile in tilesList)    
             {
                 tile.ResetColor();
                 isWalkable = false;
