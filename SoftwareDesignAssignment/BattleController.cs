@@ -28,8 +28,24 @@ namespace SoftwareDesignAssignment
         //Methods
         public void Update()
         {
-            if (InputEngine.IsKeyPressed(Keys.P))
-                NextTeam();
+            switch (battleState)
+            {
+                case BattleState.PlayerOneTurn:
+                    teams[0].SetActive(true);
+                    if(teams[0].HasNotMoved() <= 0)
+                    {
+                        NextTeam();
+                    }
+                    break;
+
+                case BattleState.PlayerTwoTurn:
+                    teams[1].SetActive(true);
+                    if (teams[1].HasNotMoved() <= 0)
+                    {
+                        NextTeam();
+                    }
+                    break;
+            }
         }
 
         public void NextTeam()
@@ -43,18 +59,18 @@ namespace SoftwareDesignAssignment
             {
                 case BattleState.Inactive:
                 case BattleState.PlayerOneTurn:
-                    teams[0].IsActive = true;
-                    teams[1].IsActive = false;
                     teams[0].DisplayUI(true);
                     teams[1].DisplayUI(false);
+                    teams[1].SetActive(true);
+                    teams[0].SetActive(false);
                     battleState = BattleState.PlayerTwoTurn;
                     break;
 
                 case BattleState.PlayerTwoTurn:
-                    teams[0].IsActive = false;
-                    teams[1].IsActive = true;
                     teams[0].DisplayUI(false);
                     teams[1].DisplayUI(true);
+                    teams[1].SetActive(false);
+                    teams[0].SetActive(true);
                     battleState = BattleState.PlayerOneTurn;
                     break;
 

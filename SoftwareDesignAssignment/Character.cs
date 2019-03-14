@@ -21,6 +21,7 @@ namespace SoftwareDesignAssignment
         public bool IsSelected { get; set; } = false;
         public bool HasMoved { get; private set; } = false;
         public bool IsDead { get; private set; } = false;
+        public bool IsActive { get; set; } = false;
         public Element ElementalType { get; private set; }
         public Rectangle ClickBox { get; set; }
         public MapGrid grid;
@@ -54,7 +55,7 @@ namespace SoftwareDesignAssignment
                     gridCell = tile.gridLocation;
                     Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
                     grid.ResetWalkable();
-                    //IsSelected = false;
+                    HasMoved = true;
                 }
                 
             }
@@ -75,34 +76,33 @@ namespace SoftwareDesignAssignment
                 IsDead = true;
             }
 
-            if (InputEngine.IsKeyPressed(Keys.M) && IsSelected)
-                Debug.WriteLine(IsSelected);
-
-            if (IsSelected)
+            if (IsActive)
             {
+                if (IsSelected)
+                {
                     for (int i = MovementRange; i > 0; i--)
                     {
                         grid.CheckMoves(gridCell, i);
                     }
                     grid.CheckAttack(gridCell, MovementRange + AttackRange);
 
-                //IsSelected = !IsSelected;      
-            }
+                    //IsSelected = !IsSelected;      
+                }
 
-            if (IsSelected && InputEngine.IsMouseLeftClick())
-            {
-                IsSelected = false;
-                Move(grid);
-                Debug.WriteLine("Move");
+                if (IsSelected && InputEngine.IsMouseLeftClick())
+                {
+                    IsSelected = false;
+                    Move(grid);
+                    Debug.WriteLine("Move");
 
-                grid.ResetWalkable();
+                    grid.ResetWalkable();
+                }
+                else if (!IsSelected && ClickCheck())
+                {
+                    IsSelected = true;
+                    Debug.WriteLine("Selected");
+                }
             }
-            else if (!IsSelected && ClickCheck())
-            {
-                IsSelected = true;
-                Debug.WriteLine("Selected");
-            }
-
             
 
             base.Update(gameTime);
@@ -110,8 +110,8 @@ namespace SoftwareDesignAssignment
 
         public bool ClickCheck()
         {
-            //if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved)
-            if (InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position))
+            //if (InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position))
+            if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved && IsActive)
             {
                 Debug.WriteLine("Clicked");
                 return true;

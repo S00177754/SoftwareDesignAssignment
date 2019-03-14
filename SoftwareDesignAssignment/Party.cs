@@ -58,5 +58,28 @@ namespace SoftwareDesignAssignment
                 statBlocks.Visible = value;
             }
         }
+
+        public int HasNotMoved()
+        {
+            int temp = 0;
+            foreach (var member in Members)
+            {
+                if (member.HasMoved)
+                    temp++;
+            }
+            return temp;
+        }
+
+        public void SetActive(bool value)
+        {
+            foreach (var member in Members)
+            {
+                member.IsActive = value;
+                if (value == true)
+                    member.StartTurn();
+            }
+        }
+
+       
     }
 }
