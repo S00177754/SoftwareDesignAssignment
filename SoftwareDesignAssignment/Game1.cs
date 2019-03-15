@@ -85,9 +85,6 @@ namespace SoftwareDesignAssignment
                 Content.Load<Texture2D>(@"Textures\Tiles\wood")
             };
             mapGrid = new MapGrid(this, 64, 64, tileMap,textureList);
-
-            //testCharacter = new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft);
-            //testCharacter.spriteDepth = 1;
             battleController = new BattleController(this, new Party[] { new Party(this,"PlayerOne", new List<Character>()
             {
                 new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,0), 1, Sprite.OriginType.TopLeft),
@@ -104,6 +101,9 @@ namespace SoftwareDesignAssignment
             })
                 });
             this.Services.AddService<BattleController>(battleController);
+
+            //testCharacter = new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft);
+            //testCharacter.spriteDepth = 1;
             //playerOneParty = new Party(this,"PlayerOne", new List<Character>()
             //{
             //    new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), Vector2.Zero, 1, Sprite.OriginType.TopLeft),

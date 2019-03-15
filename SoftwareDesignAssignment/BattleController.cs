@@ -15,6 +15,8 @@ namespace SoftwareDesignAssignment
     {
         //Variables
         public BattleState battleState;
+
+        //REMOVED STATIC FOR CHARACTER
         static public Party[] teams;
         public MapGrid grid;
 
