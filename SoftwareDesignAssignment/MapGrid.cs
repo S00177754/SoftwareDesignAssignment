@@ -91,21 +91,25 @@ namespace SoftwareDesignAssignment
             {
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
-                
+
                 if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
                 {
-                    for (int j = 0; i < BattleController.teams[0].Members.Count; i++)
+                    checkThisTile.IsWalkable = true;
+                }
+
+                foreach (var team in BattleController.teams)
+                {
+                    foreach (var mem in team.Members)
                     {
-                        for (int k = 0; k < BattleController.teams.Length; k++)
+
+                        if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1])
                         {
-                            if (checkThisTile.gridLocation[0] == BattleController.teams[k].Members[j].gridCell[0]
-                                  && checkThisTile.gridLocation[1] == BattleController.teams[k].Members[j].gridCell[1])
-                                checkThisTile.IsWalkable = false;
-                            else
-                                checkThisTile.IsWalkable = true;
+                            checkThisTile.IsWalkable = false;
+                            Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
                         }
                     }
                 }
+
                 deltaX--;
                 deltaY++;
             }
@@ -117,23 +121,24 @@ namespace SoftwareDesignAssignment
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                                                     && current.gridLocation[1] == (y + deltaY));
 
-                    if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                {
+                    checkThisTile.IsWalkable = true;
+                }
+
+                foreach (var team in BattleController.teams)
+                {
+                    foreach (var mem in team.Members)
                     {
-                        for (int j = 0; i < BattleController.teams[0].Members.Count; i++)
+                        if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1])
                         {
-                            for (int k = 0; k < BattleController.teams.Length; k++)
-                            {
-                                if (checkThisTile.gridLocation[0] == BattleController.teams[k].Members[j].gridCell[0]
-                                      && checkThisTile.gridLocation[1] == BattleController.teams[k].Members[j].gridCell[1])
-                                    //ClickBox.Contains(BattleController.teams[k].Members[j].ClickBox))
-                                    checkThisTile.IsWalkable = false;
-                                else
-                                    checkThisTile.IsWalkable = true;
-                            }
+                            checkThisTile.IsWalkable = false;
+                            Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
                         }
                     }
-                
-                    //checkThisTile.IsWalkable = true;
+                }
+
+                //checkThisTile.IsWalkable = true;
                 deltaX--;
                 deltaY--;
             }
@@ -146,23 +151,24 @@ namespace SoftwareDesignAssignment
                                                     && current.gridLocation[1] == (y + deltaY));
 
 
-                    if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                {
+                    checkThisTile.IsWalkable = true;
+                }
+
+                foreach (var team in BattleController.teams)
+                {
+                    foreach (var mem in team.Members)
                     {
-                        for (int j = 0; i < BattleController.teams[0].Members.Count; i++)
+                        if (checkThisTile != null &&  !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1])
                         {
-                            for (int k = 0; k < BattleController.teams.Length; k++)
-                            {
-                                if (checkThisTile.gridLocation[0] == BattleController.teams[k].Members[j].gridCell[0]
-                                    && checkThisTile.gridLocation[1] == BattleController.teams[k].Members[j].gridCell[1])
-                                    checkThisTile.IsWalkable = false;
-                                else
-                                    checkThisTile.IsWalkable = true;
-                            }
+                            checkThisTile.IsWalkable = false;
+                            Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
                         }
                     }
+                }
 
-                
-                    //checkThisTile.IsWalkable = true;
+                //checkThisTile.IsWalkable = true;
                 deltaX++;
                 deltaY++;
             }
@@ -174,24 +180,25 @@ namespace SoftwareDesignAssignment
                 Tile checkThisTile = tilesList.Find(current => current.gridLocation[0] == (x + deltaX)
                 && current.gridLocation[1] == (y + deltaY));
 
+                if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                {
+                    checkThisTile.IsWalkable = true;
+                }
 
-                    if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
+                foreach (var team in BattleController.teams)
+                {
+                    foreach (var mem in team.Members)
                     {
-                        for (int j = 0; i < BattleController.teams[0].Members.Count; i++)
+                        if (checkThisTile != null &&  !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1] )
                         {
-                            for (int k = 0; k < BattleController.teams.Length; k++)
-                            {
-                                if (checkThisTile.gridLocation[0] == BattleController.teams[k].Members[j].gridCell[0]
-                                      && checkThisTile.gridLocation[1] == BattleController.teams[k].Members[j].gridCell[1])
-                                    checkThisTile.IsWalkable = false;
-                                else
-                                    checkThisTile.IsWalkable = true;
-                            }
+                            checkThisTile.IsWalkable = false;
+                            Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
                         }
                     }
+                }
 
-                
-                    //checkThisTile.IsWalkable = true;
+
+                //checkThisTile.IsWalkable = true;
                 deltaX++;
                 deltaY--;
             }
