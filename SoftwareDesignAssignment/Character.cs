@@ -16,6 +16,7 @@ namespace SoftwareDesignAssignment
         public int Health { get; private set; }
         public int MagicPoints { get; private set; }
         public int[] gridCell;
+        public int teamNumber;
         public int MovementRange { get; private set; }
         public int AttackRange { get; private set; }
         public bool IsSelected { get; set; } = false;
@@ -29,7 +30,7 @@ namespace SoftwareDesignAssignment
 
         public SpriteBatch sp;
 
-        public Character(Game game,int health, int magicPoints,Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,texture, userPosition, frameCount, origin)
+        public Character(Game game,int health, int magicPoints,int teamNum, Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,texture, userPosition, frameCount, origin)
         {
             grid = game.Services.GetService<MapGrid>();
             sp = game.Services.GetService<SpriteBatch>();
@@ -42,9 +43,10 @@ namespace SoftwareDesignAssignment
             MovementRange = 3;
             AttackRange = 1;
             Visible = true;
+            teamNumber = teamNum;
         }
 
-        //Methods
+        //Sets defaults for start of a battle turn
         public void StartTurn()
         {
             HasMoved = false;
@@ -56,11 +58,60 @@ namespace SoftwareDesignAssignment
         {
             foreach (var tile in grid.tilesList)
             {
-                if (tile.ClickCheck() && tile.IsWalkable)
+                #region Attack Method
+                //if (tile.ClickCheck() && tile.IsAttackable && !tile.IsWalkable)
+                //{
+                //    Debug.WriteLine("Attack");
+
+                //    int[] temp = new int[] { tile.gridLocation[0]--, tile.gridLocation[1] };
+
+                //    if (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1]) != null && (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1])).IsWalkable)
+                //    {
+                //        gridCell = new int[] { tile.gridLocation[0], tile.gridLocation[1] };
+                //        Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
+                //        grid.ResetWalkable();
+                //        HasMoved = true;
+                //    }
+
+                //    temp = new int[] { tile.gridLocation[0]++, tile.gridLocation[1] };
+
+                //    if (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1]) != null && (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1])).IsWalkable && !HasMoved)
+                //    {
+                //        gridCell = new int[] { tile.gridLocation[0], tile.gridLocation[1] };
+                //        Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
+                //        grid.ResetWalkable();
+                //        HasMoved = true;
+                //    }
+
+                //    temp = new int[] { tile.gridLocation[0], tile.gridLocation[1]-- };
+
+                //    if (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1]) != null && (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1])).IsWalkable && !HasMoved)
+                //    {
+                //        gridCell = new int[] { tile.gridLocation[0], tile.gridLocation[1] };
+                //        Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
+                //        grid.ResetWalkable();
+                //        HasMoved = true;
+                //    }
+
+                //    temp = new int[] { tile.gridLocation[0], tile.gridLocation[1]++ };
+
+                //    if (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1]) != null && (grid.tilesList.Find(tle => tle.gridLocation[0] == temp[0] && tle.gridLocation[1] == temp[1])).IsWalkable && !HasMoved)
+                //    {
+                //        gridCell = new int[] { tile.gridLocation[0], tile.gridLocation[1] };
+                //        Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
+                //        grid.ResetWalkable();
+                //        HasMoved = true;
+                //    }
+
+                //    Attack(tile.gridLocation);
+                //}
+                //else 
+                #endregion
+                if (tile.ClickCheck() && tile.IsWalkable && !tile.IsAttackable)
                 {
                     Debug.WriteLine("Move");
                     gridCell = tile.gridLocation;
-                    Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64);
+                    Position = new Vector2(gridCell[0] * 64, gridCell[1] * 64); //Position is determined by gridcell location due to nature of the game
                     grid.ResetWalkable();
                     HasMoved = true;
                 }
@@ -68,9 +119,12 @@ namespace SoftwareDesignAssignment
             }
         }
 
-        public void Attack(MapGrid grid)
+        public void Attack(int[] gridLocation)
         {
-          //  for
+            foreach (var team in BattleController.teams)
+            {
+                //team.Members.Find(c => c.gridCell[0] == gridLocation[0] && c.gridCell[1] == gridLocation[1]).Health -= (int)(5 * ElementalType.ModifyDamage(team.Members.Find(c => c.gridCell[0] == gridLocation[0] && c.gridCell[1] == gridLocation[1]).ElementalType.mySign));
+            }
         }
 
         //Overrides
@@ -80,7 +134,7 @@ namespace SoftwareDesignAssignment
         {
             ClickBox = CollisionField;
 
-            if(Health <= 0)
+            if(Health <= 0) //Checks if character is dead
             {
                 Visible = false;
                 IsDead = true;
@@ -93,14 +147,14 @@ namespace SoftwareDesignAssignment
                 {
                     for (int i = MovementRange; i > 0; i--)
                     {
-                        grid.CheckMoves(gridCell, i);
+                        grid.CheckMoves(gridCell, i,teamNumber);
                     }
                     grid.CheckAttack(gridCell, MovementRange + AttackRange);
 
                     //IsSelected = !IsSelected;      
                 }
 
-                if (IsSelected && InputEngine.IsMouseLeftClick())
+                if (IsSelected && InputEngine.IsMouseLeftClick()) //Executes movement script
                 {
                     IsSelected = false;
                     Move(grid);
@@ -121,7 +175,6 @@ namespace SoftwareDesignAssignment
 
         public bool ClickCheck()
         {
-            //if (InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position))
             if(InputEngine.IsMouseLeftClick() && ClickBox.Contains(Mouse.GetState().Position) && !HasMoved && IsActive)
             {
                 Debug.WriteLine("Clicked");
@@ -129,7 +182,6 @@ namespace SoftwareDesignAssignment
             }
             else
             {
-                //IsSelected = false;
                 return false;
             }
         }
@@ -146,7 +198,7 @@ namespace SoftwareDesignAssignment
 
     public class PlayerCharacter : Character
     {
-        public PlayerCharacter(Game game,int health, int magicPoints, Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,health, magicPoints, elementType, texture, userPosition, frameCount, origin)
+        public PlayerCharacter(Game game,int health, int magicPoints,int teamNum, Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,health, magicPoints,teamNum, elementType, texture, userPosition, frameCount, origin)
         {
         }
 

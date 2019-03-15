@@ -75,7 +75,7 @@ namespace SoftwareDesignAssignment
             }
         }
 
-        public void CheckMoves(int[] playerPos, int range)
+        public void CheckMoves(int[] playerPos, int range,int myTeamNum)
         {
             int x = playerPos[0];
             int y = playerPos[1];
@@ -95,6 +95,7 @@ namespace SoftwareDesignAssignment
                 if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
                 {
                     checkThisTile.IsWalkable = true;
+                    checkThisTile.IsAttackable = false;
                 }
 
                 foreach (var team in BattleController.teams)
@@ -105,7 +106,13 @@ namespace SoftwareDesignAssignment
                         if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1])
                         {
                             checkThisTile.IsWalkable = false;
-                            Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
+                            //Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
+                        }
+
+                        if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1] && mem.teamNumber != myTeamNum)
+                        {
+                            checkThisTile.IsAttackable = true;
+                            checkThisTile.IsWalkable = false;
                         }
                     }
                 }
@@ -124,6 +131,7 @@ namespace SoftwareDesignAssignment
                 if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
                 {
                     checkThisTile.IsWalkable = true;
+                    checkThisTile.IsAttackable = false;
                 }
 
                 foreach (var team in BattleController.teams)
@@ -134,6 +142,12 @@ namespace SoftwareDesignAssignment
                         {
                             checkThisTile.IsWalkable = false;
                             Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
+                        }
+
+                        if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1] && mem.teamNumber != myTeamNum)
+                        {
+                            checkThisTile.IsAttackable = true;
+                            checkThisTile.IsWalkable = false;
                         }
                     }
                 }
@@ -154,6 +168,7 @@ namespace SoftwareDesignAssignment
                 if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
                 {
                     checkThisTile.IsWalkable = true;
+                    checkThisTile.IsAttackable = false;
                 }
 
                 foreach (var team in BattleController.teams)
@@ -164,6 +179,12 @@ namespace SoftwareDesignAssignment
                         {
                             checkThisTile.IsWalkable = false;
                             Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
+                        }
+
+                        if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1] && mem.teamNumber != myTeamNum)
+                        {
+                            checkThisTile.IsAttackable = true;
+                            checkThisTile.IsWalkable = false;
                         }
                     }
                 }
@@ -183,6 +204,7 @@ namespace SoftwareDesignAssignment
                 if (checkThisTile != null && checkThisTile.IsPassable) //&& checkThisTile.gridLocation[0] != member.gridCell[0] && checkThisTile.gridLocation[1] != member.gridCell[1]
                 {
                     checkThisTile.IsWalkable = true;
+                    checkThisTile.IsAttackable = false;
                 }
 
                 foreach (var team in BattleController.teams)
@@ -192,7 +214,14 @@ namespace SoftwareDesignAssignment
                         if (checkThisTile != null &&  !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1] )
                         {
                             checkThisTile.IsWalkable = false;
-                            Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
+                            //Debug.WriteLine($"Mem:[{mem.gridCell[0]},{mem.gridCell[0]}]  Check:[{checkThisTile.gridLocation[0]},{checkThisTile.gridLocation[0]}]");
+                        }
+
+                        if (checkThisTile != null && !mem.IsDead && mem.gridCell[0] == checkThisTile.gridLocation[0] && mem.gridCell[1] == checkThisTile.gridLocation[1] && mem.teamNumber != myTeamNum)
+                        {
+                            checkThisTile.IsAttackable = true;
+                            checkThisTile.IsWalkable = false;
+                            Debug.WriteLine("ATTACK #########################################################################");
                         }
                     }
                 }
@@ -217,6 +246,7 @@ namespace SoftwareDesignAssignment
             {
                 tile.ResetColor();
                 isWalkable = false;
+                tile.IsAttackable = false;
             }
         }
 

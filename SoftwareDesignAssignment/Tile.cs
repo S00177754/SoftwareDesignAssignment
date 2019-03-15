@@ -59,7 +59,7 @@ namespace SoftwareDesignAssignment
             
             if (ClickBox.Contains(Mouse.GetState().Position) && InputEngine.IsMouseLeftClick())
             {
-                Debug.WriteLine("ClickCheck Tile: " + IsWalkable);
+                //Debug.WriteLine("ClickCheck Tile: " + IsWalkable);
                 return true;
             }
             return false;

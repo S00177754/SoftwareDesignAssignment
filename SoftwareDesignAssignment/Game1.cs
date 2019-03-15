@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 namespace SoftwareDesignAssignment
 {
@@ -24,8 +25,6 @@ namespace SoftwareDesignAssignment
         List<Texture2D> textureList;
         #endregion
 
-        //Party playerOneParty;
-        //Party playerTwoParty;
         BattleController battleController;
 
         public Game1()
@@ -73,7 +72,7 @@ namespace SoftwareDesignAssignment
             this.Services.AddService(Content.Load<SpriteFont>(@"Fonts\spriteFont"));
             this.Services.AddService(spriteBatch);
 
-            // TODO: use this.Content to load your game content here
+            //Loads tile textures for map to be used
             textureList = new List<Texture2D>()
             {
                 Content.Load<Texture2D>(@"Textures\Tiles\dirt"),
@@ -85,23 +84,26 @@ namespace SoftwareDesignAssignment
                 Content.Load<Texture2D>(@"Textures\Tiles\wood")
             };
             mapGrid = new MapGrid(this, 64, 64, tileMap,textureList);
+
+            //Battle controller and party initilisation and loading of content
             battleController = new BattleController(this, new Party[] { new Party(this,"PlayerOne", new List<Character>()
             {
-                new PlayerCharacter(this, 34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,63, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,25, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(128,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,11, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft)
+                new PlayerCharacter(this, 34, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,63, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,25, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(128,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,11, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft)
             }),
             new Party(this,"PlayerTwo", new List<Character>()
             {
-                new PlayerCharacter(this, 14, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,32, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,40, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,34, 77, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
+                new PlayerCharacter(this, 14, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,32, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,40, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
+                new PlayerCharacter(this,34, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
             })
                 });
             this.Services.AddService<BattleController>(battleController);
 
+            //Main menu button initialisation
             StartUI = new List<UIElement>()
             {
                 new UIButton(this,"Start Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,100)),200,100,Color.Orange),
@@ -133,23 +135,27 @@ namespace SoftwareDesignAssignment
 
                 switch (gameState)
                 {
+                //Start Screen setup, menu visibility turned on and checks for Menu actions carried out here.
                     case GameState.StartScreen:
                     ((UIButton)StartUI[0]).Visible = true;
                     ((UIButton)StartUI[1]).Visible = true;
                     mapGrid.Display(false);
 
+                    //Start game button,changes game state and sets up battle controller
                     if (((UIButton)StartUI[0]).ClickCheck() )
                     {
                             gameState = GameState.Playing;
                         battleController.NextTeam();
                     }
                        
+                    //Exit game button, closes application
                     if (((UIButton)StartUI[1]).ClickCheck())
                     {
                         Exit();
                     }
                     break;
 
+                //Play Screen logic, main menu turned off and battle controller starts updating
                 case GameState.Playing:
 
                     ((UIButton)StartUI[0]).Visible = false;
@@ -158,8 +164,10 @@ namespace SoftwareDesignAssignment
                     battleController.Update();
                     break;
 
+                //Pause screen not implemented yet
                 case GameState.Paused:
-                    break;
+                    throw new NotImplementedException();
+                    
                 }
             
 

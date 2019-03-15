@@ -11,7 +11,7 @@ namespace SoftwareDesignAssignment
     public class Element
     {
         Random rand = new Random();
-        SIGN mySign;
+        public SIGN mySign;
 
         public Element()
         {
