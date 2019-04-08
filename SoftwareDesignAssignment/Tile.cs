@@ -82,7 +82,7 @@ namespace SoftwareDesignAssignment
                 tileColor = Color.Red;
             }
 
-            tileColor.A = 127;
+            tileColor.A = 0;
         }
 
         public void ResetColor()
