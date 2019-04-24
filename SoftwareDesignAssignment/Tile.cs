@@ -19,6 +19,7 @@ namespace SoftwareDesignAssignment
         bool ClickCheck();
     }
 
+    //TESTING
     public class Tile :DrawableGameComponent, IClickable
     {
         //Variables
