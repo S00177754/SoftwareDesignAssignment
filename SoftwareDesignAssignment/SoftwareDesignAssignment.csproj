@@ -43,6 +43,13 @@
   <ItemGroup>
     <Compile Include="BattleController.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="Classes\AssetManager.cs" />
+    <Compile Include="Classes\Camera.cs" />
+    <Compile Include="Classes\GameObject.cs" />
+    <Compile Include="Classes\InputEngine.cs" />
+    <Compile Include="Classes\Scenes.cs" />
+    <Compile Include="Classes\Scoreboard.cs" />
+    <Compile Include="Classes\UserInterface.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InputEngine.cs" />
@@ -62,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Textures\starBattles.png" />
     <Content Include="Content\Textures\Tiles\dirt.jpg" />
     <Content Include="Content\Textures\Tiles\grass.jpg" />
     <Content Include="Content\Textures\Tiles\ground.jpg" />
@@ -70,6 +78,7 @@
     <Content Include="Content\Textures\Tiles\rock.jpg" />
     <Content Include="Content\Textures\Tiles\wood.jpg" />
     <Content Include="Content\Textures\WhiteSquare.png" />
+    <Content Include="Content\Textures\WoodPanel.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DsaaCAassessment2019;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace SoftwareDesignAssignment
 {
     public enum BattleState { PlayerOneTurn,PlayerTwoTurn,Inactive}
 
-    public class BattleController
+    public class BattleController : GameObject
     {
         //Variables
         public BattleState battleState;
