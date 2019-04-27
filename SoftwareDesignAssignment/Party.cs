@@ -17,10 +17,10 @@ namespace SoftwareDesignAssignment
         public bool IsActive { get; set; } = false;
 
         //Constructor
-        public Party(Game game,string playerName):this(game,playerName,new List<Character>())
+        public Party(Game game,string playerName):this(game,playerName,new List<Character>(),Color.Gray)
         {   
         }
-        public Party(Game game,string playerName,List<Character> partyMembers)
+        public Party(Game game,string playerName,List<Character> partyMembers,Color partyColor)
         {
             PlayerName = playerName;
             Members = partyMembers;
@@ -28,7 +28,7 @@ namespace SoftwareDesignAssignment
 
             for (int i = 0; i < 4; i++)
             {
-                MemberStats.Add(new UIStatBlock(game, Members[i], game.Content.Load<Texture2D>(@"Textures\WhiteSquare"), new Vector2((10 + 100 * i), game.GraphicsDevice.Viewport.Height - 50), 100, 40, Color.Gray));
+                MemberStats.Add(new UIStatBlock(game, Members[i], game.Content.Load<Texture2D>(@"Textures\WhiteSquare"), new Vector2((10 + 100 * i), game.GraphicsDevice.Viewport.Height - 50), 100, 40, partyColor));
                 
             }
 

@@ -105,7 +105,7 @@ namespace SoftwareDesignAssignment
             if (Visible)
             {
             base.Draw(gameTime);
-                spriteBatch.DrawString(spriteFont, message, positionText, Color.Black);
+                spriteBatch.DrawString(spriteFont, message, positionText, Color.White);
             }
             spriteBatch.End();
         }

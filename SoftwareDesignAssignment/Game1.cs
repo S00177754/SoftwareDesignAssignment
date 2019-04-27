@@ -18,6 +18,7 @@ namespace SoftwareDesignAssignment
         SpriteBatch spriteBatch;
         public static GameState gameState;
         public List<UIElement> StartUI;
+        private Sprite spriteLogo;
 
         #region Map Objects
         MapGrid mapGrid;
@@ -92,23 +93,24 @@ namespace SoftwareDesignAssignment
                 new PlayerCharacter(this,63, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
                 new PlayerCharacter(this,25, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(128,0), 1, Sprite.OriginType.TopLeft),
                 new PlayerCharacter(this,11, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft)
-            }),
+            },Color.Blue),
             new Party(this,"PlayerTwo", new List<Character>()
             {
                 new PlayerCharacter(this, 14, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
                 new PlayerCharacter(this,32, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
                 new PlayerCharacter(this,40, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
                 new PlayerCharacter(this,34, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
-            })
+            },Color.Red)
                 });
             this.Services.AddService<BattleController>(battleController);
 
             //Main menu button initialisation
             StartUI = new List<UIElement>()
             {
-                new UIButton(this,"Start Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,100)),200,100,Color.Orange),
-                new UIButton(this,"Exit Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-100)),200,100,Color.Orange)
+                new UIButton(this,"Start Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-25)),200,50,Color.Orange),
+                new UIButton(this,"Exit Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-100)),200,50,Color.Orange)
             };
+            spriteLogo = new Sprite(this, Content.Load<Texture2D>(@"Textures\starBattles"), (GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100, 25)), 1, Sprite.OriginType.Center);
 
             gameState = GameState.StartScreen;
 
@@ -181,6 +183,14 @@ namespace SoftwareDesignAssignment
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            switch (gameState)
+            {
+                case GameState.StartScreen:
+                    spriteLogo.Draw(gameTime);
+                    break;
+            }
+
             base.Draw(gameTime);
         }
     }
