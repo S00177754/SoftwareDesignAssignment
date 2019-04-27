@@ -201,6 +201,10 @@ namespace SoftwareDesignAssignment
         public PlayerCharacter(Game game,int health, int magicPoints,int teamNum, Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin) : base(game,health, magicPoints,teamNum, elementType, texture, userPosition, frameCount, origin)
         {
         }
+        public PlayerCharacter(Game game, int health, int magicPoints, int teamNum, Element elementType, Texture2D texture, Vector2 userPosition, int frameCount, OriginType origin,Color tint) : base(game, health, magicPoints, teamNum, elementType, texture, userPosition, frameCount, origin)
+        {
+            textureTint = tint;
+        }
 
         public override void Draw(GameTime gameTime)
         {

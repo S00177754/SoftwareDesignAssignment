@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Textures\astronaut.png" />
+    <Content Include="Content\Textures\fullMoon.png" />
+    <Content Include="Content\Textures\MetalPanel.png" />
     <Content Include="Content\Textures\starBattles.png" />
     <Content Include="Content\Textures\Tiles\dirt.jpg" />
     <Content Include="Content\Textures\Tiles\grass.jpg" />

@@ -18,7 +18,6 @@ namespace SoftwareDesignAssignment
         SpriteBatch spriteBatch;
         public static GameState gameState;
         public List<UIElement> StartUI;
-        private Sprite spriteLogo;
 
         #region Map Objects
         MapGrid mapGrid;
@@ -89,17 +88,17 @@ namespace SoftwareDesignAssignment
             //Battle controller and party initilisation and loading of content
             battleController = new BattleController(this, new Party[] { new Party(this,"PlayerOne", new List<Character>()
             {
-                new PlayerCharacter(this, 34, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,63, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,25, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(128,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,11, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft)
+                new PlayerCharacter(this, 34, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(0,0), 1, Sprite.OriginType.TopLeft, Color.Blue),
+                new PlayerCharacter(this,63, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(64,0), 1, Sprite.OriginType.TopLeft,Color.Blue),
+                new PlayerCharacter(this,25, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(128,0), 1, Sprite.OriginType.TopLeft,Color.Blue),
+                new PlayerCharacter(this,11, 77,1, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(0,64), 1, Sprite.OriginType.TopLeft,Color.Blue)
             },Color.Blue),
             new Party(this,"PlayerTwo", new List<Character>()
             {
-                new PlayerCharacter(this, 14, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,32, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,40, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft),
-                new PlayerCharacter(this,34, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\Characters\testCharacterSprite"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft)
+                new PlayerCharacter(this, 14, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(384,0), 1, Sprite.OriginType.TopLeft,Color.Red),
+                new PlayerCharacter(this,32, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(320,0), 1, Sprite.OriginType.TopLeft,Color.Red),
+                new PlayerCharacter(this,40, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(320,64), 1, Sprite.OriginType.TopLeft,Color.Red),
+                new PlayerCharacter(this,34, 77,2, new Element(SIGN.Spock), Content.Load<Texture2D>(@"Textures\astronaut"), new Vector2(320,128), 1, Sprite.OriginType.TopLeft,Color.Red)
             },Color.Red)
                 });
             this.Services.AddService<BattleController>(battleController);
@@ -107,10 +106,11 @@ namespace SoftwareDesignAssignment
             //Main menu button initialisation
             StartUI = new List<UIElement>()
             {
-                new UIButton(this,"Start Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-25)),200,50,Color.Orange),
-                new UIButton(this,"Exit Game",Content.Load<Texture2D>(@"Textures\WhiteSquare"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-100)),200,50,Color.Orange)
+                new UIImage(this,Content.Load<Texture2D>(@"Textures\fullMoon"),Vector2.Zero,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height,Color.White),
+                new UIImage(this,Content.Load<Texture2D>(@"Textures\starBattles"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(200,100)),400,100,Color.White),
+                new UIButton(this,"Start Game",Content.Load<Texture2D>(@"Textures\MetalPanel"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-25)),200,50,Color.White),
+                new UIButton(this,"Exit Game",Content.Load<Texture2D>(@"Textures\MetalPanel"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-100)),200,50,Color.White)
             };
-            spriteLogo = new Sprite(this, Content.Load<Texture2D>(@"Textures\starBattles"), (GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100, 25)), 1, Sprite.OriginType.Center);
 
             gameState = GameState.StartScreen;
 
@@ -139,19 +139,21 @@ namespace SoftwareDesignAssignment
                 {
                 //Start Screen setup, menu visibility turned on and checks for Menu actions carried out here.
                     case GameState.StartScreen:
-                    ((UIButton)StartUI[0]).Visible = true;
-                    ((UIButton)StartUI[1]).Visible = true;
+                    ((UIImage)StartUI[0]).Visible = true;
+                    ((UIImage)StartUI[1]).Visible = true;
+                    ((UIButton)StartUI[2]).Visible = true;
+                    ((UIButton)StartUI[3]).Visible = true;
                     mapGrid.Display(false);
 
                     //Start game button,changes game state and sets up battle controller
-                    if (((UIButton)StartUI[0]).ClickCheck() )
+                    if (((UIButton)StartUI[2]).ClickCheck() )
                     {
                             gameState = GameState.Playing;
                         battleController.NextTeam();
                     }
                        
                     //Exit game button, closes application
-                    if (((UIButton)StartUI[1]).ClickCheck())
+                    if (((UIButton)StartUI[3]).ClickCheck())
                     {
                         Exit();
                     }
@@ -160,8 +162,10 @@ namespace SoftwareDesignAssignment
                 //Play Screen logic, main menu turned off and battle controller starts updating
                 case GameState.Playing:
 
-                    ((UIButton)StartUI[0]).Visible = false;
-                    ((UIButton)StartUI[1]).Visible = false;
+                    ((UIImage)StartUI[0]).Visible = false;
+                    ((UIImage)StartUI[1]).Visible = false;
+                    ((UIButton)StartUI[2]).Visible = false;
+                    ((UIButton)StartUI[3]).Visible = false;
                     mapGrid.Display(true);
                     battleController.Update();
                     break;
@@ -184,12 +188,7 @@ namespace SoftwareDesignAssignment
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            switch (gameState)
-            {
-                case GameState.StartScreen:
-                    spriteLogo.Draw(gameTime);
-                    break;
-            }
+            
 
             base.Draw(gameTime);
         }

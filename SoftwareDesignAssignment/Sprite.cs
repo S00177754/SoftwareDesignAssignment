@@ -20,6 +20,7 @@ namespace SoftwareDesignAssignment
             get { return spriteTexture; }
             set { spriteTexture = value; }
         }
+        public Color textureTint = Color.White;
         public int spriteWidth = 0;
         public int spriteHeight = 0;
         private Rectangle sourceRectangle;
@@ -120,7 +121,7 @@ namespace SoftwareDesignAssignment
         {
             spriteBatch.Begin();
             if (Visible)
-                spriteBatch.Draw(spriteTexture, new Rectangle((int)Position.X, (int)Position.Y, 64, 64),SourceRectangle, Color.White, angleOfRotation,Origin,SpriteEffects.None,spriteDepth);
+                spriteBatch.Draw(spriteTexture, new Rectangle((int)Position.X, (int)Position.Y, 64, 64),SourceRectangle, textureTint, angleOfRotation,Origin,SpriteEffects.None,spriteDepth);
 
             //spriteBatch.Draw(spriteTexture,
             //            Position, sourceRectangle,

@@ -34,8 +34,10 @@ namespace SoftwareDesignAssignment
 
         public override void Draw(GameTime gameTime)
         {
+            spriteBatch.Begin();
             if(Visible)
             spriteBatch.Draw(texture, destinationRectangle,backgroundColor);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
@@ -60,8 +62,8 @@ namespace SoftwareDesignAssignment
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
             base.Draw(gameTime);
+            spriteBatch.Begin();
             if (Visible)
             {
                 spriteBatch.DrawString(spriteFont, message,positionText, Color.Black);
@@ -101,13 +103,30 @@ namespace SoftwareDesignAssignment
 
         public override void Draw(GameTime gameTime)
         {
+                base.Draw(gameTime);
             spriteBatch.Begin();
             if (Visible)
             {
-            base.Draw(gameTime);
                 spriteBatch.DrawString(spriteFont, message, positionText, Color.White);
             }
             spriteBatch.End();
+        }
+    }
+
+    public class UIImage : UIElement
+    {
+        public UIImage(Game game, Texture2D texture, Vector2 position, int boxWidth, int boxHeight, Color backgroundColor) : base(game, texture, position, boxWidth, boxHeight, backgroundColor)
+        {
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }
