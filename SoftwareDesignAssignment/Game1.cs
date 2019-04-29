@@ -8,7 +8,7 @@ using System;
 namespace SoftwareDesignAssignment
 {
 
-    public enum GameState { StartScreen,Playing,Paused};
+    public enum GameState { StartScreen,Playing,Paused,Begin};
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -18,6 +18,7 @@ namespace SoftwareDesignAssignment
         SpriteBatch spriteBatch;
         public static GameState gameState;
         public List<UIElement> StartUI;
+        public List<UIElement> BeginUI;
 
         #region Map Objects
         MapGrid mapGrid;
@@ -112,6 +113,15 @@ namespace SoftwareDesignAssignment
                 new UIButton(this,"Exit Game",Content.Load<Texture2D>(@"Textures\MetalPanel"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-100)),200,50,Color.White)
             };
 
+            BeginUI = new List<UIElement>()
+            {
+                new UIImage(this,Content.Load<Texture2D>(@"Textures\fullMoon"),Vector2.Zero,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height,Color.White),
+                new UIImage(this,Content.Load<Texture2D>(@"Textures\MetalPanel"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(150,150)),300,300,Color.DimGray),
+                new UIButton(this,"Okay",Content.Load<Texture2D>(@"Textures\MetalPanel"),(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(100,-75)),200,50,Color.White),
+                new UITextBlock(this,new List<string>(){"How To Play","Select Character","Move", "or","Attack","End of Turn"},(GraphicsDevice.Viewport.Bounds.Center.ToVector2() - new Vector2(50,60)),true)
+                
+            };
+
             gameState = GameState.StartScreen;
 
         }
@@ -143,19 +153,44 @@ namespace SoftwareDesignAssignment
                     ((UIImage)StartUI[1]).Visible = true;
                     ((UIButton)StartUI[2]).Visible = true;
                     ((UIButton)StartUI[3]).Visible = true;
+
+                    ((UIImage)BeginUI[0]).Visible = false;
+                    ((UIImage)BeginUI[1]).Visible = false;
+                    ((UIButton)BeginUI[2]).Visible = false;
+                    ((UITextBlock)BeginUI[3]).Visible = false;
+
                     mapGrid.Display(false);
 
                     //Start game button,changes game state and sets up battle controller
                     if (((UIButton)StartUI[2]).ClickCheck() )
                     {
-                            gameState = GameState.Playing;
-                        battleController.NextTeam();
+                            gameState = GameState.Begin;
+                        
                     }
                        
                     //Exit game button, closes application
                     if (((UIButton)StartUI[3]).ClickCheck())
                     {
                         Exit();
+                    }
+                    break;
+
+                case GameState.Begin:
+                    ((UIImage)StartUI[0]).Visible = false;
+                    ((UIImage)StartUI[1]).Visible = false;
+                    ((UIButton)StartUI[2]).Visible = false;
+                    ((UIButton)StartUI[3]).Visible = false;
+
+                    ((UIImage)BeginUI[0]).Visible = true;
+                    ((UIImage)BeginUI[1]).Visible = true;
+                    ((UIButton)BeginUI[2]).Visible = true;
+                    ((UITextBlock)BeginUI[3]).Visible = true;
+
+
+                    if (((UIButton)BeginUI[2]).ClickCheck())
+                    {
+                        gameState = GameState.Playing;
+                        battleController.NextTeam();
                     }
                     break;
 
@@ -166,6 +201,13 @@ namespace SoftwareDesignAssignment
                     ((UIImage)StartUI[1]).Visible = false;
                     ((UIButton)StartUI[2]).Visible = false;
                     ((UIButton)StartUI[3]).Visible = false;
+
+                    ((UIImage)BeginUI[0]).Visible = false;
+                    ((UIImage)BeginUI[1]).Visible = false;
+                    ((UIButton)BeginUI[2]).Visible = false;
+                    ((UITextBlock)BeginUI[3]).Visible = false;
+
+
                     mapGrid.Display(true);
                     battleController.Update();
                     break;

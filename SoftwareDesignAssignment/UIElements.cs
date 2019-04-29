@@ -35,7 +35,7 @@ namespace SoftwareDesignAssignment
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            if(Visible)
+            if(Visible && texture != null)
             spriteBatch.Draw(texture, destinationRectangle,backgroundColor);
             spriteBatch.End();
             base.Draw(gameTime);
@@ -127,6 +127,45 @@ namespace SoftwareDesignAssignment
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+        }
+    }
+
+    public class UITextBlock : UIElement
+    {
+        public List<string> TextList { get; set; }
+        private Color color;
+        private bool BeginPrompt = false;
+
+        public UITextBlock(Game game,List<string> textList, Vector2 position,bool beginPrompt) : base(game, null, position, 0, 0, Color.White)
+        {
+            TextList = textList;
+            color = Color.White;
+            BeginPrompt = beginPrompt;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch sb = Game.Services.GetService<SpriteBatch>();
+
+            sb.Begin();
+            for (int i = 0; i < TextList.Count; i++)
+            {
+                if (i == 2 && BeginPrompt)
+                    color = Color.CornflowerBlue;
+                else if (i == 4 && BeginPrompt)
+                    color = Color.Red;
+                else
+                    color = Color.White;
+
+                sb.DrawString(Game.Services.GetService<SpriteFont>(), TextList[i], destinationRectangle.Location.ToVector2() + new Vector2(0, 20 * i), color);
+            }
+            sb.End();
+
+            base.Draw(gameTime);
         }
     }
 }
